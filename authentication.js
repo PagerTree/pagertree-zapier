@@ -30,7 +30,7 @@ const getSessionKey = (z, bundle) => {
     if (response.status === 422) {
       throw new Error('The username/password you supplied is invalid');
     }
-    const json = JSON.parse(response.content);
+    const json = z.JSON.parse(response.content);
     return {
       sessionKey: json.token
     };
