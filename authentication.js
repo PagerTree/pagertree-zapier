@@ -53,5 +53,5 @@ module.exports = {
     perform: getSessionKey
   },
   // assuming "username" is a key returned from the test
-  connectionLabel: '{{username}}'
+  connectionLabel: '{{data}}'
 };
