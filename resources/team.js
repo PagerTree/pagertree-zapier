@@ -21,7 +21,7 @@ const searchTeams = (z, bundle) => {
   const responsePromise = z.request({
     url: 'https://api.pagertree.com/team',
     params: {
-      query: `name=${bundle.inputData.name}`
+      name: bundle.inputData.name
     }
   });
   return responsePromise

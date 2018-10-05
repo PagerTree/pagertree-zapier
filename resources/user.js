@@ -21,7 +21,7 @@ const searchUsers = (z, bundle) => {
   const responsePromise = z.request({
     url: 'https://api.pagertree.com/user',
     params: {
-      query: `name=${bundle.inputData.name}`
+      name: bundle.inputData.name
     }
   });
   return responsePromise

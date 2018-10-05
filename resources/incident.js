@@ -23,7 +23,7 @@ const searchIncidents = (z, bundle) => {
   const responsePromise = z.request({
     url: 'https://api.pagertree.com/incident',
     params: {
-      query: `title=${bundle.inputData.name}`
+      title: bundle.inputData.name
     }
   });
   return responsePromise
