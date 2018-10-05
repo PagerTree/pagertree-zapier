@@ -1,6 +1,7 @@
 const debug = require('debug')('pt:resources:broadcast');
 
 const jwt = require('jsonwebtoken');
+const _ = require('lodash');
 
 // create a broadcast
 const createBroadcast = (z, bundle) => {
@@ -10,7 +11,7 @@ const createBroadcast = (z, bundle) => {
     body: {
       message: bundle.inputData.message, // json by default
       source_id: jwt.decode(bundle.authData.sessionKey).id,
-      user_ids: [ bundle.inputData.user_ids ]
+      user_ids: _.isArray(bundle.inputData.user_ids) ? bundle.inputData.user_ids : [ bundle.inputData.user_ids ]
     }
   });
   return responsePromise
@@ -29,7 +30,7 @@ module.exports = {
     operation: {
       inputFields: [
         {key: 'message', required: true, label: "Message", helpText: "Add a message to the broadcast!"},
-        {key: 'user_ids', required: true, label: "Destination User", dynamic: 'userList.id.name', helpText: "Who should we send the broadcast to?"},
+        {key: 'user_ids', required: true, label: "Destination User", dynamic: 'userList.id.name', helpText: "Who should we send the broadcast to?", "list": true},
       ],
       perform: createBroadcast
     },
@@ -40,9 +41,7 @@ module.exports = {
   },
 
   outputFields: [
-    {key: 'sid', label: 'SID'},
     {key: 'id', label: 'ID'},
-    {key: 'createdAt', label: 'Created At'},
     {key: 'message', label: 'message'}
   ]
 };

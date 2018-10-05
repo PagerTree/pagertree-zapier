@@ -103,6 +103,7 @@ module.exports = {
 
   outputFields: [
     {key: 'id', label: 'ID'},
-    {key: 'name', label: 'Name'}
+    {key: 'name', label: 'Name'},
+    {key: 'email', label: 'Email'}
   ]
 };

@@ -34,7 +34,9 @@ const createTeam = (z, bundle) => {
     method: 'POST',
     url: 'https://api.pagertree.com/team',
     body: {
-      name: bundle.inputData.name // json by default
+      name: bundle.inputData.name, // json by default
+      description: bundle.inputData.description,
+      member_user_ids: [ jwt.decode(bundle.authData.sessionKey).id ]
     }
   });
   return responsePromise
@@ -88,7 +90,8 @@ module.exports = {
     },
     operation: {
       inputFields: [
-        {key: 'name', required: true}
+        {key: 'name', required: true, label: "Name", helpText: "What's the name of the team?"},
+        {key: 'description', required: true, label: "Description", helpText: "What does this team do?"},
       ],
       perform: createTeam
     },
