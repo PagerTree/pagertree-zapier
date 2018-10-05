@@ -11,9 +11,6 @@ const getIncident = (z, bundle) => {
 const listIncidents = (z) => {
   const responsePromise = z.request({
     url: 'https://api.pagertree.com/incident',
-    params: {
-      order_by: 'id desc'
-    }
   });
   return responsePromise
     .then(response => z.JSON.parse(response.content).data);

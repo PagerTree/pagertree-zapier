@@ -11,9 +11,6 @@ const getTeam = (z, bundle) => {
 const listTeams = (z) => {
   const responsePromise = z.request({
     url: 'https://api.pagertree.com/team',
-    params: {
-      order_by: 'id desc'
-    }
   });
   return responsePromise
     .then(response => z.JSON.parse(response.content).data);
