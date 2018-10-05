@@ -1,11 +1,11 @@
 {
-  "name": "zapier-platform-example-app-minimal",
+  "name": "pagertree-zapier",
   "version": "1.0.0",
-  "description": "An example app for the Zapier platform.",
-  "repository": "zapier/zapier-platform-example-app-minimal",
+  "description": "PagerTree app for the Zapier platform.",
+  "repository": "https://github.com/PagerTree/pagertree-zapier",
   "homepage": "https://zapier.com/",
-  "author": "Bryan Helmig <bryan@zapier.com>",
-  "license": "BSD-3-Clause",
+  "author": "Austin Miller <austinrmiller1991@gmail.com>",
+  "license": "GPL-3.0-only",
   "main": "index.js",
   "scripts": {
     "test": "mocha --recursive"
