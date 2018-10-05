@@ -1,3 +1,5 @@
+const jwt = require('jsonwebtoken');
+
 // get a single incident
 const getIncident = (z, bundle) => {
   const responsePromise = z.request({
@@ -36,6 +38,7 @@ const createIncident = (z, bundle) => {
     body: {
       title: bundle.inputData.title, // json by default
       description: bundle.inputData.description,
+      source_id: jwt.decode(bundle.authData.sessionKey).id,
       d_team_id: bundle.inputData.d_team_id,
       urgency: bundle.inputData.urgency
     }
