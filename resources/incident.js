@@ -66,7 +66,7 @@ module.exports = {
 
   list: {
     display: {
-      label: 'New Incident',
+      label: 'List Incidents',
       description: 'Lists the incidents.'
     },
     operation: {

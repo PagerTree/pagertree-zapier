@@ -36,7 +36,9 @@ const createTeam = (z, bundle) => {
     body: {
       name: bundle.inputData.name, // json by default
       description: bundle.inputData.description,
-      member_user_ids: [ jwt.decode(bundle.authData.sessionKey).id ]
+      member_user_ids: _.get(bundle.inputData.member_user_ids, "length", 0) ?
+        bundle.inputData.member_user_ids :
+        [ jwt.decode(bundle.authData.sessionKey).id ]
     }
   });
   return responsePromise
@@ -62,7 +64,7 @@ module.exports = {
 
   list: {
     display: {
-      label: 'New Team',
+      label: 'List Teams',
       description: 'Lists the teams.'
     },
     operation: {
@@ -83,19 +85,20 @@ module.exports = {
     },
   },
 
-  create: {
-    display: {
-      label: 'Create Team',
-      description: 'Creates a new team.'
-    },
-    operation: {
-      inputFields: [
-        {key: 'name', required: true, label: "Name", helpText: "What's the name of the team?"},
-        {key: 'description', required: true, label: "Description", helpText: "What does this team do?"},
-      ],
-      perform: createTeam
-    },
-  },
+  // create: {
+  //   display: {
+  //     label: 'Create Team',
+  //     description: 'Creates a new team.'
+  //   },
+  //   operation: {
+  //     inputFields: [
+  //       {key: 'name', required: true, label: "Name", helpText: "What's the name of the team?"},
+  //       {key: 'description', required: true, label: "Description", helpText: "What does this team do?"},
+  //       {key: 'member_user_ids', required: true, label: "Team Members", dynamic: 'userList.id.name', helpText: "Who should be on the team?", "list": true},
+  //     ],
+  //     perform: createTeam
+  //   },
+  // },
 
   sample: {
     id: 1,

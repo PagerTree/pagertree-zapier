@@ -61,7 +61,7 @@ module.exports = {
 
   list: {
     display: {
-      label: 'New User',
+      label: 'List Users',
       description: 'Lists the users.'
     },
     operation: {
