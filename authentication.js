@@ -14,7 +14,7 @@ const testAuth = (z, bundle) => {
         throw new Error('The Session Key you supplied is invalid');
       }
 
-      return response;
+      return z.JSON.parse(response.content);
     });
 };
 
