@@ -1,23 +1,21 @@
 const debug = require('debug')('pt:authentication');
 const _ = require('lodash');
+const jwt = require('jsonwebtoken');
 
-const testAuth = (z /*, bundle*/) => {
+const testAuth = (z, bundle) => {
   debug(`testAuth`);
-  // Normally you want to make a request to an endpoint that is either specifically designed to test auth, or one that
-  // every user will have access to, such as an account or profile endpoint like /me.
-  // In this example, we'll hit httpbin, which validates the Authorization Header against the arguments passed in the URL path
-  const promise = z.request({
-    url: 'https://api.pagertree.com/team',
-  });
-
   // This method can return any truthy value to indicate the credentials are valid.
   // Raise an error to show
-  return promise.then((response) => {
-    if (response.status === 401) {
-      throw new Error('The Session Key you supplied is invalid');
-    }
-    return response;
-  });
+  var jwt_data = jwt.decode(bundle.authData.sessionKey);
+  return z.request({
+      url: `https://api.pagertree.com/user/${jwt_data.id}`,
+    }).then((response) => {
+      if (response.status === 401) {
+        throw new Error('The Session Key you supplied is invalid');
+      }
+
+      return response;
+    });
 };
 
 const getSessionKey = (z, bundle) => {
@@ -65,5 +63,5 @@ module.exports = {
     perform: getSessionKey
   },
   // assuming "username" is a key returned from the test
-  connectionLabel: ''
+  connectionLabel: '{{email}}'
 };
