@@ -11,6 +11,10 @@ const getUser = (z, bundle) => {
 const listUsers = (z) => {
   const responsePromise = z.request({
     url: 'https://api.pagertree.com/user',
+    params: {
+      sort: 'createdAt',
+      sortdirection: 'DESC'
+    }
   });
   return responsePromise
     .then(response => z.JSON.parse(response.content).data);

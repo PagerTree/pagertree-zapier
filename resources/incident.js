@@ -13,6 +13,10 @@ const getIncident = (z, bundle) => {
 const listIncidents = (z) => {
   const responsePromise = z.request({
     url: 'https://api.pagertree.com/incident',
+    params: {
+      sort: 'created',
+      sortdirection: 'DESC'
+    }
   });
   return responsePromise
     .then(response => z.JSON.parse(response.content).data);
