@@ -1,4 +1,8 @@
+const debug = require('debug')('pt:authentication');
+const _ = require('lodash');
+
 const testAuth = (z /*, bundle*/) => {
+  debug(`testAuth`);
   // Normally you want to make a request to an endpoint that is either specifically designed to test auth, or one that
   // every user will have access to, such as an account or profile endpoint like /me.
   // In this example, we'll hit httpbin, which validates the Authorization Header against the arguments passed in the URL path
@@ -17,6 +21,7 @@ const testAuth = (z /*, bundle*/) => {
 };
 
 const getSessionKey = (z, bundle) => {
+  debug(`getSessionKey username %O`, bundle.authData.username);
   const promise = z.request({
     method: 'POST',
     url: 'https://api.pagertree.com/public/login',
@@ -27,13 +32,20 @@ const getSessionKey = (z, bundle) => {
   });
 
   return promise.then((response) => {
-    if (response.status === 422) {
+    if(response.status === 200){
+      const json = z.JSON.parse(response.content);
+      return {
+        sessionKey: json.token
+      };
+    } else if(response.status === 400){
+      throw new Error(_.get(response.json, "errors.0.message"));
+    } else if (response.status === 422) {
       throw new Error('The username/password you supplied is invalid');
+    } else if (response.status === 429) {
+      throw new Error(_.get(response.json, "errors.0.message"));
+    } else {
+      throw new Error(`Unknown error occured`, respone);
     }
-    const json = z.JSON.parse(response.content);
-    return {
-      sessionKey: json.token
-    };
   });
 };
 
